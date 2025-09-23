@@ -2,25 +2,35 @@ console.log("Hello! I am running!")
 
 // import css
 import   "./styles.css";
-// import assets
-import SeiunSkyWallpaper from './assets/images/uma_wallpaper.webp';
 
-// get the html content area
+// import functions
+import loadHomePage from "./home.js";
+import loadMenuPage from "./menu.js";
+import loadAboutPage from "./about.js";
+
+// get content area
 const contentArea = document.querySelector('#content');
 
-// heading?
-const mainHeading = document.createElement('h1');
-mainHeading.textContent = "Welcome to Umastaurant";
-mainHeading.className = "hero-title";
-contentArea.append(mainHeading);
+// get buttons
+const homeButton = document.querySelector('.home');
+const menuButton = document.querySelector('.menu');
+const aboutButton = document.querySelector('.about');
 
-//paragraph?
-const subHeading = document.createElement('p');
-subHeading.textContent = "Welcome to our Umamusume themed restaurant!";
-contentArea.append(subHeading)
+// add event listeners to the buttons
+homeButton.addEventListener('click', ()=> {
+    contentArea.innerHTML= '';
+    loadHomePage();
+})
 
-//image?
-const mainWallpaper = document.createElement('img');
-mainWallpaper.src = SeiunSkyWallpaper;
-mainWallpaper.alt = "Our Umastaurant Wallpaper";
-contentArea.append(mainWallpaper);
+menuButton.addEventListener('click', () => {
+    contentArea.innerHTML = '';
+    loadMenuPage();
+})
+
+aboutButton.addEventListener('click', () => {
+    contentArea.innerHTML = '';
+    loadAboutPage();
+})
+
+// load the home page when opening the site
+loadHomePage();

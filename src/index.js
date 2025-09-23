@@ -21,6 +21,6 @@ contentArea.append(subHeading)
 
 //image?
 const mainWallpaper = document.createElement('img');
-mainWallpaper = SeiunSkyWallpaper;
+mainWallpaper.src = SeiunSkyWallpaper;
 mainImage.alt = "Our Umastaurant Wallpaper";
 contentArea.append(mainWallpaper);

@@ -3,7 +3,7 @@ console.log("Hello! I am running!")
 // import css
 import   "./styles.css";
 // import assets
-import SeiunSkyWallpaper from './assets/images/umastaurant_wallpaper.webp';
+import SeiunSkyWallpaper from './assets/images/uma_wallpaper.webp';
 
 // get the html content area
 const contentArea = document.querySelector('#content');

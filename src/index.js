@@ -1,36 +1,60 @@
 console.log("Hello! I am running!")
 
-// import css
+// IMPORTS
 import   "./styles.css";
-
-// import functions
 import loadHomePage from "./home.js";
 import loadMenuPage from "./menu.js";
 import loadAboutPage from "./about.js";
 
-// get content area
+// DOM Selectors
 const contentArea = document.querySelector('#content');
-
-// get buttons
 const homeButton = document.querySelector('.home');
 const menuButton = document.querySelector('.menu');
 const aboutButton = document.querySelector('.about');
 
-// add event listeners to the buttons
-homeButton.addEventListener('click', ()=> {
-    contentArea.innerHTML= '';
+// Button Event Listeners
+homeButton.addEventListener('click', () => {
+    // Clear the active class from all buttons
+    homeButton.classList.remove('active-tab');
+    menuButton.classList.remove('active-tab');
+    aboutButton.classList.remove('active-tab');
+    
+    // Add the active class to the clicked button
+    homeButton.classList.add('active-tab');
+
+    // Load the page content
+    contentArea.innerHTML = '';
     loadHomePage();
-})
+});
 
 menuButton.addEventListener('click', () => {
+    // Clear the active class from all buttons
+    homeButton.classList.remove('active-tab');
+    menuButton.classList.remove('active-tab');
+    aboutButton.classList.remove('active-tab');
+
+    // Add the active class to the clicked button
+    menuButton.classList.add('active-tab');
+
+    // Load the page content
     contentArea.innerHTML = '';
     loadMenuPage();
-})
+});
 
 aboutButton.addEventListener('click', () => {
+    // Clear the active class from all buttons
+    homeButton.classList.remove('active-tab');
+    menuButton.classList.remove('active-tab');
+    aboutButton.classList.remove('active-tab');
+
+    // Add the active class to the clicked button
+    aboutButton.classList.add('active-tab');
+
+    // Load the page content
     contentArea.innerHTML = '';
     loadAboutPage();
-})
+});
 
-// load the home page when opening the site
+// Page Startup Load
 loadHomePage();
+homeButton.classList.add('active-tab');

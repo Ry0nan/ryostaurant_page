@@ -12,51 +12,42 @@ const homeButton = document.querySelector('.home');
 const menuButton = document.querySelector('.menu');
 const aboutButton = document.querySelector('.about');
 
+// DOM Button Array
+const headerButtonArray = [homeButton, menuButton, aboutButton];
+
+// set button to active when clicked 
+function setActiveButton(buttonToActivate) {
+    headerButtonArray.forEach(function(headerButton){
+        headerButton.classList.remove('active-tab');
+    })
+    buttonToActivate.classList.add('active-tab')
+}
+
 // Button Event Listeners
 homeButton.addEventListener('click', () => {
-    // Clear the active class from all buttons
-    homeButton.classList.remove('active-tab');
-    menuButton.classList.remove('active-tab');
-    aboutButton.classList.remove('active-tab');
-    
-    // Add the active class to the clicked button
-    homeButton.classList.add('active-tab');
 
-    // Load the page content
     contentArea.innerHTML = '';
+    setActiveButton(homeButton);
     loadHomePage();
+
 });
 
 menuButton.addEventListener('click', () => {
-    // Clear the active class from all buttons
-    homeButton.classList.remove('active-tab');
-    menuButton.classList.remove('active-tab');
-    aboutButton.classList.remove('active-tab');
 
-    // Add the active class to the clicked button
-    menuButton.classList.add('active-tab');
-
-    // Load the page content
     contentArea.innerHTML = '';
+    setActiveButton(menuButton);
     loadMenuPage();
+
 });
 
 aboutButton.addEventListener('click', () => {
-    // Clear the active class from all buttons
-    homeButton.classList.remove('active-tab');
-    menuButton.classList.remove('active-tab');
-    aboutButton.classList.remove('active-tab');
 
-    // Add the active class to the clicked button
-    aboutButton.classList.add('active-tab');
-
-    // Load the page content
     contentArea.innerHTML = '';
+    setActiveButton(aboutButton);
     loadAboutPage();
+    
 });
 
 // Page Startup Load
 loadHomePage();
-homeButton.classList.add('active-tab');
-
-// DEPLOYMENT
+setActiveButton(homeButton);

@@ -58,3 +58,5 @@ aboutButton.addEventListener('click', () => {
 // Page Startup Load
 loadHomePage();
 homeButton.classList.add('active-tab');
+
+// DEPLOYMENT

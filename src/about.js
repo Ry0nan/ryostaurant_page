@@ -7,7 +7,7 @@ function loadAboutPage(){
     // temp heading
     const aboutHeading = document.createElement('h1');
     aboutHeading.textContent = "What is Umastaurant even about?";
-    aboutHeadingHeading.className = "about-heading";
+    aboutHeading.className = "about-heading";
     contentArea.append(aboutHeading);
 }
 

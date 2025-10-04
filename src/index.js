@@ -5,6 +5,7 @@ import   "./styles.css";
 import loadHomePage from "./home.js";
 import loadMenuPage from "./menu.js";
 import loadAboutPage from "./about.js";
+import './musicPlayer.js';
 
 // DOM Selectors
 const contentArea = document.querySelector('#content');

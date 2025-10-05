@@ -29,10 +29,28 @@
 
 /* <-- STYLING FOR THE MUSIC PLAYER ---> */
 .uma-music-player-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #ff0000;
+    background-color: #80A1BA;
     padding: 10px;
+    border: 2px solid #FFF7DD;
     border-radius: 8px;
+    box-shadow: 5px 5px 10px gray;
+    width: 350px;
+    height: 75px;
+}
+
+/* music player buttons */
+.music-button {
+    background-color: #91C4C3;
+    border: 1px solid #FFF7DD;
+    border-radius: 16px;
+    cursor: pointer;
+    width: 80px;
+    height: 25px;
 }

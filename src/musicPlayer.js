@@ -20,7 +20,7 @@ console.log(audioElement); // For debugging, you can remove this later
 // button controls for the player
 const playButton = document.createElement('button');
 playButton.textContent = 'Play';
-playButton.className = 'player-button';
+playButton.className = 'player-button music-button';
 
 // discontinued?
 // const pauseButton = document.createElement('button');
@@ -30,11 +30,11 @@ playButton.className = 'player-button';
 
 const prevButton = document.createElement('button');
 prevButton.textContent = 'Prev';
-prevButton.className = 'previous-button';
+prevButton.className = 'previous-button music-button';
 
 const nextButton = document.createElement('button');
 nextButton.textContent = 'Next';
-nextButton.className = 'next-button'
+nextButton.className = 'next-button music-button'
 
 playerContainer.append(playButton);
 playerContainer.append(prevButton);

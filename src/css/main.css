@@ -1,0 +1,28 @@
+/* <-- STYLING FOR THE JS CONTROL PARTS ---> */
+
+/* changes the buttons styling when active */
+.active-tab {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* <-- STYLING FOR THE HEADER AND NAVIGATION PARTS ---> */
+
+/* styling for the header */
+.uma-header {
+    display: flex;
+    justify-content: center;
+}
+
+/* stylong for the navigation-bar */
+.uma-navigation-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* styling for the buttons */
+.uma-header-button {
+    width: 60px;
+    padding: 10px;
+} 

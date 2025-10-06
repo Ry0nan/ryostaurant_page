@@ -1,5 +1,5 @@
 // import assets
-import SeiunSkyWallpaper from './assets/images/uma_wallpaper.webp';
+import SeiunSkyWallpaper from './assets/images/bg-images/uma_wallpaper.webp';
 
 // function to load the home page 
 function loadHomePage() {    

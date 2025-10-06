@@ -1,7 +1,7 @@
 console.log("Hello! I am running!")
 
 // IMPORTS
-import   "./styles.css";
+import "./css/main.css";
 import loadHomePage from "./home.js";
 import loadMenuPage from "./menu.js";
 import loadAboutPage from "./about.js";

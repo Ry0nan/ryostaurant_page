@@ -28,10 +28,26 @@
 } 
 
 /* <-- STYLING FOR THE MUSIC PLAYER ---> */
+/* music player toggle button */
+.music-player-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #FFF7DD;
+    background-color: #91C4C3;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* music player pop-up */
 .uma-music-player-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
     gap: 8px;
     position: fixed;
     bottom: 20px;
@@ -42,8 +58,24 @@
     border-radius: 8px;
     box-shadow: 5px 5px 10px gray;
     width: 350px;
-    height: 75px;
+    height: 175px;
 }
+
+/* time controls container */
+.music-time-controls-container {
+    display: flex;
+    justify-content: center; 
+    width: 100%; 
+}
+
+/* music player buttons controls container */
+.music-controls-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
 
 /* music player buttons */
 .music-button {
@@ -53,4 +85,27 @@
     cursor: pointer;
     width: 80px;
     height: 25px;
+}
+
+/* close button */
+.music-player-close-button {
+    position: absolute;
+    top: 5px;   /* 5px from the top of the container */
+    right: 5px; /* 5px from the right of the container */
+
+    /* Optional: Add some basic styling */
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* controls for when the music player can be seen */
+.is-visible {
+    display: flex;
+}
+
+/* hide the toggle button when the player is visible */
+.is-visible + .music-player-toggle-button {
+    display: none;
 }

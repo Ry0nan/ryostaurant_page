@@ -1,5 +1,11 @@
-/* <-- STYLING FOR THE MUSIC PLAYER ---> */
-/* music player toggle button */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* --- Universal Player Styles --- */
+.uma-music-player-container, .music-player-toggle-button, .playlist-container {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- Toggle Button --- */
 .music-player-toggle-button {
     position: fixed;
     bottom: 20px;
@@ -7,132 +13,195 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 2px solid #FFF7DD;
-    background-color: #91C4C3;
+    border: 2px solid rgba(255, 247, 221, 0.5);
+    background-color: rgba(145, 196, 195, 0.8);
+    backdrop-filter: blur(5px);
     cursor: pointer;
     z-index: 1000;
+    font-size: 1.8rem;
+    transition: transform 0.2s ease;
 }
 
-/* music player pop-up */
+.music-player-toggle-button:hover {
+    transform: scale(1.1);
+}
+
+/* --- Main Player Pop-Up (Frosted Glass) --- */
 .uma-music-player-container {
     display: none;
     flex-direction: column;
     justify-content: flex-end;
     align-items: stretch;
-    gap: 8px;
+    gap: 12px;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #80A1BA;
-    padding: 10px;
-    border: 2px solid #FFF7DD;
-    border-radius: 8px;
-    box-shadow: 5px 5px 10px gray;
+    
+    /* Frosted Glass Effect */
+    background-color: rgba(128, 161, 186, 0.6);
+    backdrop-filter: blur(10px);
+    
+    padding: 20px;
+    border: 1px solid rgba(255, 247, 221, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     width: 300px;
     height: 450px;
 }
 
-/* time controls container */
-.music-time-controls-container {
-    display: flex;
-    justify-content: center; 
-    width: 100%; 
-}
-
-/* music player buttons controls container */
-.music-controls-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
-}
-
-/* music player buttons */
-.music-button {
-    background-color: #91C4C3;
-    border: 1px solid #FFF7DD;
-    border-radius: 16px;
-    cursor: pointer;
-    width: 80px;
-    height: 25px;
-}
-
-/* close button */
-.music-player-close-button {
-    position: absolute;
-    top: 5px;   
-    right: 5px; 
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-/* song info */
+/* --- Song Info --- */
 .song-info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
-/* uma album image */
 .uma-album-art {
     width: 100%;
-    height: 250px;
-    object-fit: cover; 
+    height: 180px;
+    object-fit: contain; /* Change 'cover' to 'contain' */
     border-radius: 6px;
 }
 
-/* song title */
 .song-title {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1.1rem;
-    color: white;
+    color: #FFF7DD;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     text-align: center;
-    margin: 0; 
+    margin: 0;
 }
 
-/* styling for the music volume container */
+/* --- Time and Progress --- */
+.music-time-controls-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.8rem;
+    color: #FFF7DD;
+}
+
+.music-progress-bar, .music-volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    outline: none;
+}
+
+.music-progress-bar::-webkit-slider-thumb, .music-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #FFF7DD;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* --- Player Buttons --- */
+.music-controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.music-button {
+    background: none;
+    border: none;
+    color: #FFF7DD;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 5px;
+}
+
+.music-button:hover {
+    transform: scale(1.2);
+}
+
+.player-button {
+    font-size: 2.5rem; /* Make the play button bigger */
+}
+
+/* Visual feedback for shuffle button */
+.shuffle-button.shuffle-active {
+    color: #81D8D0; /* A brighter teal to show it's on */
+}
+
+/* --- Volume Controls --- */
 .music-volume-container {
     display: flex;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     gap: 10px;
     width: 100%;
 }
 
-/* styling for the volume icon */
 .music-volume-icon {
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    color: #FFF7DD;
 }
 
-/* hide volume slider by default */
 .music-volume-slider {
+    display: none;
+    width: 100px;
+}
+
+/* --- Close Button --- */
+.music-player-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: rgba(255, 247, 221, 0.7);
+    transition: transform 0.2s ease;
+}
+
+.music-player-close-button:hover {
+    transform: scale(1.2);
+}
+
+/* --- Visibility Controls --- */
+.volume-slider-visible {
+    display: inline-block;
+}
+
+.is-visible, .playlist-overlay.is-visible {
+    display: flex;
+}
+
+.is-visible + .music-player-toggle-button {
     display: none;
 }
 
 /* --- Playlist Pop-Up Styling --- */
-
-/* The dark background overlay */
 .playlist-overlay {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
     z-index: 2000;
-    display: none; /* Hidden by default */
     justify-content: center;
     align-items: center;
 }
 
-/* The main pop-up window */
 .playlist-container {
-    background-color: #80A1BA;
-    border: 2px solid #FFF7DD;
+    background-color: rgba(128, 161, 186, 0.8);
+    border: 1px solid rgba(255, 247, 221, 0.2);
     border-radius: 12px;
     padding: 20px;
     width: 90%;
@@ -142,15 +211,13 @@
     flex-direction: column;
 }
 
-/* The list that holds all the songs */
 .song-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    overflow-y: auto; /* Makes the list scrollable if it's too long */
+    overflow-y: auto;
 }
 
-/* Individual song item in the list */
 .song-item {
     display: flex;
     align-items: center;
@@ -159,19 +226,17 @@
     border-radius: 6px;
     cursor: pointer;
     border-bottom: 1px solid rgba(255, 247, 221, 0.2);
+    transition: background-color 0.2s ease;
 }
 
 .song-item:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Styling for the currently playing song */
 .song-item.now-playing {
-    background-color: #91C4C3;
-    color: white;
+    background-color: rgba(145, 196, 195, 0.7);
 }
 
-/* The small album art in the list */
 .playlist-album-art {
     width: 50px;
     height: 50px;
@@ -179,13 +244,12 @@
     border-radius: 4px;
 }
 
-/* The text for the song title */
 .playlist-song-title {
     margin: 0;
-    font-weight: bold;
+    font-weight: 600;
+    color: #FFF7DD;
 }
 
-/* The pop-up's close button */
 .playlist-close-button {
     position: absolute;
     top: 10px;
@@ -195,20 +259,4 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: #FFF7DD;
-}
-
-/* <--- VISIBILITY CONTROLS FOR THE MUSIC PLAYER ---> */
-/* controls for to make the volume slider visible */
-.volume-slider-visible {
-    display: inline-block;
-}
-
-/* controls for when the music player can be seen */
-.is-visible {
-    display: flex;
-}
-
-/* hide the toggle button when the player is visible */
-.is-visible + .music-player-toggle-button {
-    display: none;
 }

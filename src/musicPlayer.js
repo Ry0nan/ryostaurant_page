@@ -1,6 +1,14 @@
 // import musicPlayer css
 import "./css/musicPlayer.css";
 
+/* 
+I spend an ungodly amount of time making this part of the website
+Most of these was figured out by AI, I suck at logic lol
+But atleast I learned got comfortable at making HTML elements using JS, 
+file management, and using event listeners
+I still have a long way to go when it comes to putting functions together though
+*/
+
 // --- ASSET IMPORTS ---
 const audioContext = require.context('./assets/audio/music', false, /\.(mp3|ogg|wav)$/i);
 const imageContext = require.context('./assets/images/music-images', false, /\.(png|jpg|jpeg)$/i);
@@ -42,24 +50,25 @@ const totalDurationDisplay = document.createElement('span');
 totalDurationDisplay.textContent = '0:00';
 
 const audioElement = document.createElement('audio');
+
 const playButton = document.createElement('button');
-playButton.textContent = '▶️';
+playButton.innerHTML = '<i class="fas fa-play"></i>';
 playButton.className = 'player-button music-button';
 
 const prevButton = document.createElement('button');
-prevButton.textContent = '⏮️';
+prevButton.innerHTML = '<i class="fas fa-backward-step"></i>';
 prevButton.className = 'previous-button music-button';
 
 const nextButton = document.createElement('button');
-nextButton.textContent = '⏭️';
+nextButton.innerHTML = '<i class="fas fa-forward-step"></i>';
 nextButton.className = 'next-button music-button';
 
 const shuffleButton = document.createElement('button');
-shuffleButton.textContent = '🔀';
+shuffleButton.innerHTML = '<i class="fas fa-shuffle"></i>';
 shuffleButton.className = 'shuffle-button music-button';
 
 const musicPlayerToggleButton = document.createElement('button');
-musicPlayerToggleButton.textContent = '🎵';
+musicPlayerToggleButton.textContent = '🎵'; 
 musicPlayerToggleButton.className = "music-player-toggle-button";
 
 const musicPlayerCloseButton = document.createElement('button');
@@ -85,8 +94,8 @@ const musicVolumeContainer = document.createElement('div');
 musicVolumeContainer.className = 'music-volume-container';
 
 const musicVolumeIcon = document.createElement('span');
+musicVolumeIcon.innerHTML = '<i class="fas fa-volume-high"></i>';
 musicVolumeIcon.className = 'music-volume-icon';
-musicVolumeIcon.textContent = '🔊';
 
 const musicPlayerAlbumImage = document.createElement('img');
 musicPlayerAlbumImage.className = 'uma-album-art';
@@ -108,7 +117,7 @@ const songList = document.createElement('ul');
 songList.className = 'song-list';
 
 const showPlaylistButton = document.createElement('button');
-showPlaylistButton.textContent = '☰';
+showPlaylistButton.innerHTML = '<i class="fas fa-list-ul"></i>';
 showPlaylistButton.className = 'show-playlist-button music-button';
 
 // --- DOM STRUCTURE & APPENDING ---
@@ -153,7 +162,7 @@ function loadSong(index) {
         musicPlayerAlbumImage.src = song.art;
         songTitleElement.textContent = song.title;
         audioElement.play();
-        playButton.textContent = '⏸️';
+        playButton.innerHTML = '<i class="fas fa-pause"></i>'; 
     }
     if (playlistOverlay.classList.contains('is-visible')) {
         renderPlaylist();
@@ -205,7 +214,6 @@ function renderPlaylist() {
             songItem.classList.add('now-playing');
         }
 
-        // ** THIS IS THE FIX **
         songItem.innerHTML = `
             <img src="${song.art}" alt="${song.title}" class="playlist-album-art">
             <div class="playlist-song-info">
@@ -228,10 +236,10 @@ function renderPlaylist() {
 playButton.addEventListener('click', () => {
     if (audioElement.paused) {
         audioElement.play();
-        playButton.textContent = '⏸️';
+        playButton.innerHTML = '<i class="fas fa-pause"></i>'; 
     } else {
         audioElement.pause();
-        playButton.textContent = '▶️';
+        playButton.innerHTML = '<i class="fas fa-play"></i>'; 
     }
 });
 

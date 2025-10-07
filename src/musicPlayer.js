@@ -1,73 +1,47 @@
 // import musicPlayer css
 import "./css/musicPlayer.css";
 
-// get all music assets
+// --- ASSET IMPORTS ---
 const audioContext = require.context('./assets/audio/music', false, /\.(mp3|ogg|wav)$/i);
-// get image assets
-const imageContext = require.context('./assets/images/music-images', false, /\.(png|jpg|jpeg)$/i); // <-- UPDATED PATH
+const imageContext = require.context('./assets/images/music-images', false, /\.(png|jpg|jpeg)$/i);
 
-// build song playlist array
 const songPlaylist = audioContext.keys().map(key => {
-    // Get the full path to the audio file
     const audioSrc = audioContext(key);
-
     const fileName = key;
-    
-    // --- Automatically generate the title ---
     const title = fileName.replace('./', '').replace(/\.(mp3|ogg|wav)$/i, '');
-
-    // --- Automatically find the matching image ---
-    const imageKey = `./${title}.png`; // <-- Assumes your images are .png, change if they are .jpg, etc.
+    const imageKey = `./${title}.png`;
     const imageSrc = imageContext(imageKey);
-
-    return {
-        src: audioSrc,
-        title: title,
-        art: imageSrc,
-    };
+    return { src: audioSrc, title: title, art: imageSrc };
 });
 
-// state variable to track the current song
+// --- STATE VARIABLES ---
 let currentSongIndex = 0;
+let isShuffled = false;
+let shuffledPlaylist = [];
 
-// <--- CONTAINERS AND CONTROLS FOR THE PLAYER ELEMENTS --->
-
-// container for the player
+// --- ELEMENT CREATION ---
 const playerContainer = document.createElement('div');
 playerContainer.className = "uma-music-player-container";
-document.body.append(playerContainer);
 
-// NEW: Container for song info (art and title)
 const songInfoContainer = document.createElement('div');
 songInfoContainer.className = "song-info-container";
 
-// music controls button
 const musicControlsContainer = document.createElement('div');
 musicControlsContainer.className = "music-controls-container";
 
-// music time controls
 const musicTimeControlsContainer = document.createElement('div');
 musicTimeControlsContainer.className = "music-time-controls-container";
 
-// music time display
 const currentTimeDisplay = document.createElement('span');
 currentTimeDisplay.textContent = '0:00';
-currentTimeDisplay.className = 'time-display';
 
-// Separator for the time display
 const timeSeparator = document.createElement('span');
 timeSeparator.textContent = ' / ';
 
-// music duration display
 const totalDurationDisplay = document.createElement('span');
 totalDurationDisplay.textContent = '0:00';
-totalDurationDisplay.className = 'time-display';
 
-//handle the audio elements
 const audioElement = document.createElement('audio');
-playerContainer.append(audioElement); // Append the audio element so it's part of the DOM
-
-// button controls for the player
 const playButton = document.createElement('button');
 playButton.textContent = '▶️';
 playButton.className = 'player-button music-button';
@@ -78,7 +52,11 @@ prevButton.className = 'previous-button music-button';
 
 const nextButton = document.createElement('button');
 nextButton.textContent = '⏭️';
-nextButton.className = 'next-button music-button'
+nextButton.className = 'next-button music-button';
+
+const shuffleButton = document.createElement('button');
+shuffleButton.textContent = '🔀';
+shuffleButton.className = 'shuffle-button music-button';
 
 const musicPlayerToggleButton = document.createElement('button');
 musicPlayerToggleButton.textContent = '🎵';
@@ -106,59 +84,147 @@ musicVolumeSlider.className = 'music-volume-slider';
 const musicVolumeContainer = document.createElement('div');
 musicVolumeContainer.className = 'music-volume-container';
 
-const musicVolumeIcon = document.createElement('span'); 
+const musicVolumeIcon = document.createElement('span');
 musicVolumeIcon.className = 'music-volume-icon';
-musicVolumeIcon.textContent = '🔊'; 
+musicVolumeIcon.textContent = '🔊';
 
-// add images to the player
 const musicPlayerAlbumImage = document.createElement('img');
 musicPlayerAlbumImage.className = 'uma-album-art';
 
-// add song title to the player
 const songTitleElement = document.createElement('p');
 songTitleElement.className = 'song-title';
 
-// <--- APPEND ELEMENTS TO THE PAGE --->
-// toggle button
+const playlistOverlay = document.createElement('div');
+playlistOverlay.className = 'playlist-overlay';
+
+const playlistContainer = document.createElement('div');
+playlistContainer.className = 'playlist-container';
+
+const playlistCloseButton = document.createElement('button');
+playlistCloseButton.textContent = '🗙';
+playlistCloseButton.className = 'playlist-close-button';
+
+const songList = document.createElement('ul');
+songList.className = 'song-list';
+
+const showPlaylistButton = document.createElement('button');
+showPlaylistButton.textContent = '☰';
+showPlaylistButton.className = 'show-playlist-button music-button';
+
+// --- DOM STRUCTURE & APPENDING ---
+document.body.append(playerContainer);
 document.body.append(musicPlayerToggleButton);
 
-// These elements go inside the main player container in order
-playerContainer.append(songInfoContainer); // Add the song info container
+playerContainer.append(songInfoContainer);
 playerContainer.append(musicTimeControlsContainer);
 playerContainer.append(musicProgressBar);
 playerContainer.append(musicControlsContainer);
-playerContainer.append(musicPlayerCloseButton);
 playerContainer.append(musicVolumeContainer);
+playerContainer.append(musicPlayerCloseButton);
+playerContainer.append(audioElement);
 
-// add volume controls
 musicVolumeContainer.append(musicVolumeIcon);
 musicVolumeContainer.append(musicVolumeSlider);
 
-// add songs info inside the song info container
 songInfoContainer.append(musicPlayerAlbumImage);
 songInfoContainer.append(songTitleElement);
 
-// inside the music controls container
-musicControlsContainer.append(playButton);
 musicControlsContainer.append(prevButton);
+musicControlsContainer.append(playButton);
 musicControlsContainer.append(nextButton);
+musicControlsContainer.append(shuffleButton);
+musicControlsContainer.append(showPlaylistButton);
 
-// inside the time display container
 musicTimeControlsContainer.append(currentTimeDisplay);
 musicTimeControlsContainer.append(timeSeparator);
 musicTimeControlsContainer.append(totalDurationDisplay);
 
-// --- loadSong Function ---
+playlistContainer.append(playlistCloseButton);
+playlistContainer.append(songList);
+playlistOverlay.append(playlistContainer);
+document.body.append(playlistOverlay);
+
+// --- CORE FUNCTIONS ---
 function loadSong(index) {
-    const song = songPlaylist[index];
-    audioElement.src = song.src;
-    musicPlayerAlbumImage.src = song.art;
-    songTitleElement.textContent = song.title;
-    audioElement.play();
-    playButton.textContent = '⏸️';
+    const currentPlaylist = isShuffled ? shuffledPlaylist : songPlaylist;
+    const song = currentPlaylist[index];
+    if (song) {
+        audioElement.src = song.src;
+        musicPlayerAlbumImage.src = song.art;
+        songTitleElement.textContent = song.title;
+        audioElement.play();
+        playButton.textContent = '⏸️';
+    }
+    if (playlistOverlay.classList.contains('is-visible')) {
+        renderPlaylist();
+    }
 }
 
-// play / pause button logic
+function playNextSong() {
+    const currentPlaylist = isShuffled ? shuffledPlaylist : songPlaylist;
+    currentSongIndex++;
+    if (currentSongIndex >= currentPlaylist.length) {
+        currentSongIndex = 0;
+    }
+    loadSong(currentSongIndex);
+}
+
+function playPrevSong() {
+    const currentPlaylist = isShuffled ? shuffledPlaylist : songPlaylist;
+    currentSongIndex--;
+    if (currentSongIndex < 0) {
+        currentSongIndex = currentPlaylist.length - 1;
+    }
+    loadSong(currentSongIndex);
+}
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    const formattedSecs = secs.toString().padStart(2, '0');
+    return `${minutes}:${formattedSecs}`;
+}
+
+function shuffle(playlist) {
+    let shuffled = [...playlist];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function renderPlaylist() {
+    songList.innerHTML = '';
+    songPlaylist.forEach((song, index) => {
+        const songItem = document.createElement('li');
+        songItem.className = 'song-item';
+        
+        const isCurrentlyPlaying = isShuffled ? (audioElement.src === song.src) : (index === currentSongIndex);
+        if (isCurrentlyPlaying) {
+            songItem.classList.add('now-playing');
+        }
+
+        // ** THIS IS THE FIX **
+        songItem.innerHTML = `
+            <img src="${song.art}" alt="${song.title}" class="playlist-album-art">
+            <div class="playlist-song-info">
+                <p class="playlist-song-title">${song.title}</p>
+            </div>
+        `;
+
+        songItem.addEventListener('click', () => {
+            isShuffled = false;
+            shuffleButton.classList.remove('shuffle-active');
+            currentSongIndex = index;
+            loadSong(currentSongIndex);
+            playlistOverlay.classList.remove('is-visible');
+        });
+        songList.append(songItem);
+    });
+}
+
+// --- EVENT LISTENERS ---
 playButton.addEventListener('click', () => {
     if (audioElement.paused) {
         audioElement.play();
@@ -169,84 +235,77 @@ playButton.addEventListener('click', () => {
     }
 });
 
-// next button logic
-nextButton.addEventListener('click', () => {
-    currentSongIndex++;
-    if (currentSongIndex >= songPlaylist.length) {
-        currentSongIndex = 0;
+nextButton.addEventListener('click', playNextSong);
+prevButton.addEventListener('click', playPrevSong);
+audioElement.addEventListener('ended', playNextSong);
+
+shuffleButton.addEventListener('click', () => {
+    isShuffled = !isShuffled;
+    shuffleButton.classList.toggle('shuffle-active', isShuffled);
+    if (isShuffled) {
+        shuffledPlaylist = shuffle(songPlaylist);
+        const currentSrc = audioElement.src;
+        const newIndex = shuffledPlaylist.findIndex(song => song.src === currentSrc);
+        currentSongIndex = (newIndex !== -1) ? newIndex : 0;
+    } else {
+        const currentSrc = audioElement.src;
+        const newIndex = songPlaylist.findIndex(song => song.src === currentSrc);
+        currentSongIndex = (newIndex !== -1) ? newIndex : 0;
     }
-    loadSong(currentSongIndex); // Use the new function
 });
 
-// previous button logic
-prevButton.addEventListener('click', () => {
-    currentSongIndex--;
-    if (currentSongIndex < 0 ) {
-        currentSongIndex = songPlaylist.length - 1;
-    }
-    loadSong(currentSongIndex); // Use the new function
-});
-
-//autoplay logic
-audioElement.addEventListener('ended', () => {
-    currentSongIndex++;
-    if(currentSongIndex >= songPlaylist.length) {
-        currentSongIndex = 0;
-    }
-    loadSong(currentSongIndex); // Use the new function
-});
-
-// toggle button logic
 musicPlayerToggleButton.addEventListener('click', () => {
     playerContainer.classList.toggle('is-visible');
-})
+});
 
-// close button logic
 musicPlayerCloseButton.addEventListener('click', () => {
     playerContainer.classList.remove('is-visible');
-})
+});
 
-// update slider and time as new music plays
 audioElement.addEventListener('timeupdate', () => {
     const progressPercent = (audioElement.currentTime / audioElement.duration) * 100;
-
     if (!isNaN(progressPercent)) {
         musicProgressBar.value = progressPercent;
     }
-
     currentTimeDisplay.textContent = formatTime(audioElement.currentTime);
-})
+});
 
-// set the total duration event logic
 audioElement.addEventListener('loadedmetadata', () => {
     totalDurationDisplay.textContent = formatTime(audioElement.duration);
-})
+});
 
-// progress bar logic
 musicProgressBar.addEventListener('input', () => {
     const seekTime = (musicProgressBar.value / 100) * audioElement.duration;
     audioElement.currentTime = seekTime;
-})
-
-// time control logic
-function formatTime(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    const formattedSecs = secs.toString().padStart(2, '0');
-    return `${minutes}:${formattedSecs}`;
-}
+});
 
 musicVolumeIcon.addEventListener('click', () => {
     musicVolumeSlider.classList.toggle('volume-slider-visible');
-})
+});
 
-// volume slider logic
 musicVolumeSlider.addEventListener('input', () => {
     audioElement.volume = musicVolumeSlider.value;
-})
+});
 
-// Initial Load (loads art and title, but doesn't play)
+showPlaylistButton.addEventListener('click', () => {
+    renderPlaylist();
+    playlistOverlay.classList.add('is-visible');
+});
+
+playlistCloseButton.addEventListener('click', () => {
+    playlistOverlay.classList.remove('is-visible');
+});
+
+playlistOverlay.addEventListener('click', (e) => {
+    if (e.target === playlistOverlay) {
+        playlistOverlay.classList.remove('is-visible');
+    }
+});
+
+// --- INITIAL LOAD ---
 const initialSong = songPlaylist[0];
-audioElement.src = initialSong.src;
-musicPlayerAlbumImage.src = initialSong.art;
-songTitleElement.textContent = initialSong.title;
+if (initialSong) {
+    audioElement.src = initialSong.src;
+    musicPlayerAlbumImage.src = initialSong.art;
+    songTitleElement.textContent = initialSong.title;
+}

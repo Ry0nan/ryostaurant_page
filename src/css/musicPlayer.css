@@ -47,7 +47,6 @@
     width: 100%;
 }
 
-
 /* music player buttons */
 .music-button {
     background-color: #91C4C3;
@@ -61,7 +60,7 @@
 /* close button */
 .music-player-close-button {
     position: absolute;
-    top: 5px;  
+    top: 5px;   
     right: 5px; 
     background: none;
     border: none;
@@ -94,16 +93,6 @@
     margin: 0; 
 }
 
-/* volume container */
-.volume-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; 
-    gap: 10px;
-    width: 100%;
-    cursor: pointer;
-}
-
 /* styling for the music volume container */
 .music-volume-container {
     display: flex;
@@ -122,6 +111,90 @@
 /* hide volume slider by default */
 .music-volume-slider {
     display: none;
+}
+
+/* --- Playlist Pop-Up Styling --- */
+
+/* The dark background overlay */
+.playlist-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2000;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+}
+
+/* The main pop-up window */
+.playlist-container {
+    background-color: #80A1BA;
+    border: 2px solid #FFF7DD;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* The list that holds all the songs */
+.song-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto; /* Makes the list scrollable if it's too long */
+}
+
+/* Individual song item in the list */
+.song-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 247, 221, 0.2);
+}
+
+.song-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Styling for the currently playing song */
+.song-item.now-playing {
+    background-color: #91C4C3;
+    color: white;
+}
+
+/* The small album art in the list */
+.playlist-album-art {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* The text for the song title */
+.playlist-song-title {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* The pop-up's close button */
+.playlist-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #FFF7DD;
 }
 
 /* <--- VISIBILITY CONTROLS FOR THE MUSIC PLAYER ---> */

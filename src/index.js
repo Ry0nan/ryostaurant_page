@@ -1,17 +1,25 @@
 console.log("Hello! I am running!")
 
-// IMPORTS
+// <--- IMPORTS --->
+// css
 import "./css/main.css";
+// pages
 import loadHomePage from "./home.js";
 import loadMenuPage from "./menu.js";
 import loadAboutPage from "./about.js";
+// music player
 import './musicPlayer.js';
+// UI Sounds
+import clickSfx from './assets/audio/ui-sounds/ui-pop-sound.mp3'
 
 // DOM Selectors
 const contentArea = document.querySelector('#content');
 const homeButton = document.querySelector('.home');
 const menuButton = document.querySelector('.menu');
 const aboutButton = document.querySelector('.about');
+
+// sounds
+const clickSound = new Audio(clickSfx);
 
 // DOM Button Array
 const headerButtonArray = [homeButton, menuButton, aboutButton];
@@ -24,9 +32,19 @@ function setActiveButton(buttonToActivate) {
     buttonToActivate.classList.add('active-tab')
 }
 
+// keep the play sound logic inside a function
+function playClickSoundSfx(sound) {
+    sound.currentTime = 0;
+    sound.play();
+}
+
 // Button Event Listeners
 homeButton.addEventListener('click', () => {
 
+    // play click sound effects
+    playClickSoundSfx(clickSound);
+
+    // load pages
     contentArea.innerHTML = '';
     setActiveButton(homeButton);
     loadHomePage();
@@ -35,6 +53,10 @@ homeButton.addEventListener('click', () => {
 
 menuButton.addEventListener('click', () => {
 
+    // play click sound effects
+    playClickSoundSfx(clickSound);
+
+    // load pages
     contentArea.innerHTML = '';
     setActiveButton(menuButton);
     loadMenuPage();
@@ -43,6 +65,10 @@ menuButton.addEventListener('click', () => {
 
 aboutButton.addEventListener('click', () => {
 
+    // play click sound effects
+    playClickSoundSfx(clickSound);
+
+    // load pages
     contentArea.innerHTML = '';
     setActiveButton(aboutButton);
     loadAboutPage();

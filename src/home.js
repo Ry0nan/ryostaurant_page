@@ -1,19 +1,20 @@
 // import assets
 import SeiunSkyWallpaper from './assets/images/bg-images/uma_wallpaper.webp';
+import OguriAndGang from './assets/images/bg-images/oguri_and_gang.png'
 
 // function to load the home page 
 function loadHomePage() {    
     // 1. Get and prepare the main content container
     const contentArea = document.querySelector('#content');
-    contentArea.innerHTML = ''; // Clear previous content
-    contentArea.className = 'scroll-container'; // Add the class for snapping
+    contentArea.innerHTML = ''; 
+    contentArea.className = 'scroll-container'; 
 
     // --- Create Panel One ---
     const panelOne = document.createElement('section');
     panelOne.className = 'home-panel panel-one';
     
     // Set the background image for this panel using JavaScript
-    panelOne.style.backgroundImage = `url(${SeiunSkyWallpaper})`;
+    panelOne.style.backgroundImage = `url(${OguriAndGang})`;
 
     // Create the headline and paragraph (your existing code)
     const mainHeading = document.createElement('h1');

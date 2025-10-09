@@ -65,7 +65,7 @@ body {
 
 /* button effects when hovered */
 .uma-header-button:hover {
-    background-color: #5aa1d9; /* A slightly lighter blue for hover */
+    background-color: #5aa1d9; 
 }
 
 /* styling for the currently active button */
@@ -75,24 +75,88 @@ body {
     border-color: #FFF7DD;    
 }
 
+/* <--- STYLING FOR THE PANELS */
+
 /* the main scroll container */
 .scroll-container {
     height: 100vh;
     overflow-y: scroll; 
     scroll-snap-type: y mandatory; 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
 }
 
 /* the individual panels */
 .home-panel {
-    height: 100vh; /* Each panel is also full-screen */
-    scroll-snap-align: start; /* Snap to the top of the container */
-    display: flex; /* Helps with centering content inside */
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
+    text-align: center; 
+    padding: 20px; 
 }
 
 /* style for the first panel with your background image */
 .panel-one {
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+/* idk what this is */
+.panel-one::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: -1;
+}
+
+/* style for the hero title */
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    background-image: linear-gradient(to bottom, #FFD966, #FF66C4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: white;
+    text-shadow: 3px 3px 0 #3A3A3A, -1px -1px 0 #3A3A3A, 1px -1px 0 #3A3A3A, -1px 1px 0 #3A3A3A, 1px 1px 0 #3A3A3A;
+    animation: fadeInSlideUp 1s ease-out forwards;
+    margin-bottom: 15px; 
+}
+
+.panel-one p { 
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #FFF7DD; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
+    max-width: 80%; 
+    line-height: 1.4;
+    animation: fadeInSlideUp 1.2s ease-out forwards; 
+    animation-delay: 0.2s; 
+    opacity: 0
+}
+
+/* animation for the hero title */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

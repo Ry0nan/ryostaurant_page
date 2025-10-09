@@ -70,7 +70,29 @@ body {
 
 /* styling for the currently active button */
 .uma-header-button.active-tab {
-    background-color: #FFD966; /* A contrasting gold/yellow */
-    color: #3A89C9;           /* Use the blue for the text */
-    border-color: #FFF7DD;     /* A creamy white border */
+    background-color: #FFD966; 
+    color: #3A89C9;           
+    border-color: #FFF7DD;    
+}
+
+/* the main scroll container */
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll; 
+    scroll-snap-type: y mandatory; 
+}
+
+/* the individual panels */
+.home-panel {
+    height: 100vh; /* Each panel is also full-screen */
+    scroll-snap-align: start; /* Snap to the top of the container */
+    display: flex; /* Helps with centering content inside */
+    justify-content: center;
+    align-items: center;
+}
+
+/* style for the first panel with your background image */
+.panel-one {
+    background-size: cover;
+    background-position: center;
 }

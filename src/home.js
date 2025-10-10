@@ -1,6 +1,7 @@
 // import assets
-import SeiunSkyWallpaper from './assets/images/bg-images/uma_wallpaper.webp';
-import OguriAndGang from './assets/images/bg-images/oguri_and_gang.png'
+// import SeiunSkyWallpaper from './assets/images/bg-images/uma_wallpaper.webp';
+import OguriAndGang from './assets/images/bg-images/oguri_and_gang.png';
+import NeichaAndGang from './assets/images/bg-images/neicha_and_gang.png';
 
 // function to load the home page 
 function loadHomePage() {    
@@ -9,14 +10,14 @@ function loadHomePage() {
     contentArea.innerHTML = ''; 
     contentArea.className = 'scroll-container'; 
 
-    // --- Create Panel One ---
+    // --- Panel One ---
     const panelOne = document.createElement('section');
     panelOne.className = 'home-panel panel-one';
     
-    // Set the background image for this panel using JavaScript
+    // panel one bg image
     panelOne.style.backgroundImage = `url(${OguriAndGang})`;
 
-    // Create the headline and paragraph (your existing code)
+    // Create the headline and paragraph 
     const mainHeading = document.createElement('h1');
     mainHeading.textContent = "Welcome to Umastaurant";
     mainHeading.className = "hero-title";
@@ -28,12 +29,13 @@ function loadHomePage() {
     panelOne.append(mainHeading);
     panelOne.append(subHeading);
 
-    // --- Create Panel Two (Placeholder) ---
+    // --- Panel Two ---
     const panelTwo = document.createElement('section');
     panelTwo.className = 'home-panel panel-two';
-    
+    panelTwo.style.backgroundImage = `url(${NeichaAndGang})`;
+
     const panelTwoHeading = document.createElement('h2');
-    panelTwoHeading.textContent = "Discover Our Menu";
+    panelTwoHeading.textContent = "Discover Our Umenu";
     panelTwo.append(panelTwoHeading);
 
     // --- Append the panels to the main container ---

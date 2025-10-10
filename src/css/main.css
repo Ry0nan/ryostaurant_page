@@ -134,7 +134,7 @@ body {
     background-image: linear-gradient(to bottom, #FFD966, #FF66C4);
     -webkit-background-clip: text;
     background-clip: text;
-    color: white;
+    color: transparent;
     text-shadow: 3px 3px 0 #3A3A3A, -1px -1px 0 #3A3A3A, 1px -1px 0 #3A3A3A, -1px 1px 0 #3A3A3A, 1px 1px 0 #3A3A3A;
     animation: fadeInSlideUp 1s ease-out forwards;
     margin-bottom: 15px; 

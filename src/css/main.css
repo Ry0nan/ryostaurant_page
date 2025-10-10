@@ -79,6 +79,8 @@ body {
 
 /* the main scroll container */
 .scroll-container {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     overflow-y: scroll; 
     scroll-snap-type: y mandatory; 
@@ -100,10 +102,11 @@ body {
     align-items: center;
     text-align: center; 
     padding: 20px; 
+    flex-shrink: 0;
 }
 
-/* style for the first panel with your background image */
-.panel-one {
+/* style for the first and second panel with background image */
+.panel-one, .panel-two{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -113,7 +116,7 @@ body {
 }
 
 /* idk what this is */
-.panel-one::before {
+.panel-one::before, .panel-two::before{
     content: '';
     position: absolute;
     top: 0;

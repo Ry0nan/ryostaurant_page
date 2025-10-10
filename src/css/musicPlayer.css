@@ -76,6 +76,7 @@
     z-index: 100;
 }
 
+/* this looks like shit NGL */
 .music-player-toggle-button img {
     width: 100%; 
     height: 100%; 
@@ -83,7 +84,7 @@
     object-fit: cover; 
 }
 
-/* --- Song Info --- */
+/* --- song info --- */
 .song-info-container {
     display: flex;
     flex-direction: column;

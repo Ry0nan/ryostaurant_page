@@ -1,5 +1,11 @@
+// <--- IMPORTS --- >
 // import musicPlayer css
 import "./css/musicPlayer.css";
+// utils
+import { playClickSoundSfx } from './utils.js';
+// import sfx
+import radioStartup from './assets/audio/ui-sounds/old-radio-button.mp3';
+import insertCartridge from './assets/audio/ui-sounds/insert-cartridge.mp3';
 
 /* 
 I spend an ungodly amount of time making this part of the website
@@ -7,6 +13,11 @@ Most of these was figured out by AI, I suck at logic lol
 But atleast I learned got comfortable at making HTML elements using JS, 
 file management, and using event listeners
 I still have a long way to go when it comes to putting functions together though
+*/
+
+/* 
+    <--- DEBUG --->
+    - The radioStartupSfx doesn't stop playing when .pause() is called from other event listeners.
 */
 
 // --- ASSET IMPORTS ---
@@ -120,6 +131,9 @@ const showPlaylistButton = document.createElement('button');
 showPlaylistButton.innerHTML = '<i class="fas fa-list-ul"></i>';
 showPlaylistButton.className = 'show-playlist-button music-button';
 
+const radioStartupSfx = new Audio(radioStartup);
+const insertCartridgeSfx = new Audio(insertCartridge);
+
 // --- DOM STRUCTURE & APPENDING ---
 document.body.append(playerContainer);
 document.body.append(musicPlayerToggleButton);
@@ -155,6 +169,10 @@ document.body.append(playlistOverlay);
 
 // --- CORE FUNCTIONS ---
 function loadSong(index) {
+
+    radioStartupSfx.pause();
+    radioStartupSfx.currentTime = 0;
+
     const currentPlaylist = isShuffled ? shuffledPlaylist : songPlaylist;
     const song = currentPlaylist[index];
     if (song) {
@@ -263,10 +281,17 @@ shuffleButton.addEventListener('click', () => {
 });
 
 musicPlayerToggleButton.addEventListener('click', () => {
+    playClickSoundSfx(radioStartupSfx);
     playerContainer.classList.toggle('is-visible');
 });
 
 musicPlayerCloseButton.addEventListener('click', () => {
+    // stop other sounds
+    radioStartupSfx.pause();
+    radioStartupSfx.currentTime = 0;
+
+    // 
+    playClickSoundSfx(radioStartupSfx);
     playerContainer.classList.remove('is-visible');
 });
 

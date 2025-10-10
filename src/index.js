@@ -10,7 +10,9 @@ import loadAboutPage from "./about.js";
 // music player
 import './musicPlayer.js';
 // UI Sounds
-import clickSfx from './assets/audio/ui-sounds/ui-pop-sound.mp3'
+import clickSfx from './assets/audio/ui-sounds/ui-pop-sound.mp3';
+// utils
+import { playClickSoundSfx } from './utils.js';
 
 // DOM Selectors
 const contentArea = document.querySelector('#content');
@@ -30,12 +32,6 @@ function setActiveButton(buttonToActivate) {
         headerButton.classList.remove('active-tab');
     })
     buttonToActivate.classList.add('active-tab')
-}
-
-// keep the play sound logic inside a function
-function playClickSoundSfx(sound) {
-    sound.currentTime = 0;
-    sound.play();
 }
 
 // Button Event Listeners

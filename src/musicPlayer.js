@@ -3,6 +3,8 @@
 import "./css/musicPlayer.css";
 // utils
 import { playClickSoundSfx } from './utils.js';
+// import icons
+import jukeboxIcon from './assets/images/icon-images/jukebox-music-icon.png';
 // import sfx
 import radioStartup from './assets/audio/ui-sounds/old-radio-button.mp3';
 import insertCartridge from './assets/audio/ui-sounds/insert-cartridge.mp3';
@@ -79,8 +81,10 @@ shuffleButton.innerHTML = '<i class="fas fa-shuffle"></i>';
 shuffleButton.className = 'shuffle-button music-button';
 
 const musicPlayerToggleButton = document.createElement('button');
-musicPlayerToggleButton.textContent = '🎵'; 
 musicPlayerToggleButton.className = "music-player-toggle-button";
+const toggleButtonIcon = document.createElement('img');
+toggleButtonIcon.src = jukeboxIcon;
+musicPlayerToggleButton.append(toggleButtonIcon);
 
 const musicPlayerCloseButton = document.createElement('button');
 musicPlayerCloseButton.textContent = '🗙';

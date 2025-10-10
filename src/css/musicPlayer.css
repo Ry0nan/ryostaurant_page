@@ -13,17 +13,42 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 247, 221, 0.5);
+    
+    /* Set an initial transparent border */
+    border: 3px solid transparent;
+    
     background-color: rgba(145, 196, 195, 0.8);
     backdrop-filter: blur(5px);
     cursor: pointer;
-    z-index: 100;
+    z-index: 1000;
     font-size: 1.8rem;
-    transition: transform 0.2s ease;
+    
+    /* Apply the animation */
+    animation: rainbow-border-glow 4s linear infinite;
 }
 
 .music-player-toggle-button:hover {
     transform: scale(1.1);
+}
+
+/* --- rainbow animation --- */
+@keyframes rainbow-border-glow {
+    0%, 100% {
+        border-color: #ff66c4; /* Pink */
+        box-shadow: 0 0 10px #ff66c4;
+    }
+    25% {
+        border-color: #45d4d2; /* Cyan */
+        box-shadow: 0 0 10px #45d4d2;
+    }
+    50% {
+        border-color: #ffd966; /* Yellow */
+        box-shadow: 0 0 10px #ffd966;
+    }
+    75% {
+        border-color: #81D8D0; /* Light Teal */
+        box-shadow: 0 0 10px #81D8D0;
+    }
 }
 
 /* --- Main Player Pop-Up (Frosted Glass) --- */
@@ -49,6 +74,13 @@
     width: 300px;
     height: 450px;
     z-index: 100;
+}
+
+.music-player-toggle-button img {
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
 }
 
 /* --- Song Info --- */

@@ -1,0 +1,25 @@
+/* --- Menu Pop-Up (Modal) --- */
+.menu-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none; /* Hide it by default */
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-modal-container {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 12px;
+    /* Add other styles for size, etc. */
+}
+
+/* A class to make the modal visible */
+.menu-modal-overlay.is-visible {
+    display: flex;
+}

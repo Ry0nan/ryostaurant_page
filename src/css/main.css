@@ -165,3 +165,17 @@ body {
         transform: translateY(0);
     }
 }
+
+.github-link {
+    font-size: 1.8rem; 
+    color: white;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    display: flex; 
+    align-items: center;
+}
+
+.github-link:hover {
+    transform: scale(1.1); 
+    color: #f010f0; 
+}

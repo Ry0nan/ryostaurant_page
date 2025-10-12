@@ -12,6 +12,22 @@
     align-items: center;
 }
 
+.menu-heading {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: #FFD966;
+    margin-top: 2rem;
+}
+
+.menu-description {
+    text-align: center;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    line-height: 1.6;
+}
+
 .menu-modal-container {
     background-color: #f0f0f0;
     padding: 30px;
@@ -23,3 +39,4 @@
 .menu-modal-overlay.is-visible {
     display: flex;
 }
+

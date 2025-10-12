@@ -19,7 +19,7 @@ function loadAboutPage(){
     // sub heading?
     const aboutSubHeading = document.createElement('h4');
     aboutSubHeading.className = 'about-subheading';
-    aboutSubHeading.textContent = "This is personal page is a WIP";
+    aboutSubHeading.textContent = "This webpage is a WIP";
 
     const aboutText = document.createElement('p');
     // spit yo shihhh here Ryo9

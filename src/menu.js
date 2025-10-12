@@ -1,16 +1,20 @@
 // <--- IMPORTS --->
-
-/*
-    I never expected to use OOP concepts here. But hey it works
-    I wanted the menu items to be scalable just in case Oguri wanted more food
-*/
-
 // css
 import "./css/menu.css";
 // assets
 import carrotIcon from './assets/images/icon-images/carrot-icon.png';
 import bushelOfCarrots from './assets/images/icon-images/bushel-of-carrots-icon.png';
 import deluxeCarrotHamburgerSteak from './assets/images/icon-images/deluxe-carrot-hamburger-steak-icon.png';
+import { playClickSoundSfx } from './utils.js';
+import menuClickSfx from './assets/audio/ui-sounds/ui-pop-sound.mp3'; 
+
+/*
+    I never expected to use OOP concepts here. But hey it works
+    I wanted the menu items to be scalable just in case Oguri wanted more food
+*/
+
+// audio
+const menuCardSound = new Audio(menuClickSfx);
 
 // menu items 
 const umenuItems = [
@@ -23,7 +27,7 @@ const umenuItems = [
     {
         name: "Bushel of Carrots",
         price: "¥500",
-        description: "Energy +20, Mood + 1 All stats +5",
+        description: "Energy +20, Mood + 1, All stats +5",
         image: bushelOfCarrots
     },
     {
@@ -106,7 +110,7 @@ function loadMenuPage(){
 
     // heading description
     const menuDescription = document.createElement('p');
-    menuDescription.textContent = "test test test test test test";
+    menuDescription.textContent = "Yes, just a bunch of carrots";
     menuDescription.className = 'menu-description';
     contentArea.append(menuDescription);
 
@@ -131,6 +135,11 @@ function loadMenuPage(){
         menuCard.addEventListener('click', () => {
             openMenuModal(menuItem);
         })
+
+        menuCard.addEventListener('click', () => {
+            playClickSoundSfx(menuCardSound);
+            openMenuModal(menuItem);
+        });
 
         umenuGrid.append(menuCard);
 
